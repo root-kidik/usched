@@ -1,0 +1,25 @@
+{
+  "name": "coro",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "serve": "vite",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.6",
+    "@lezer/cpp": "^1.1.5",
+    "@mdi/js": "^7.4.47",
+    "@motion-canvas/2d": "^3.17.2",
+    "@motion-canvas/core": "^3.17.2",
+    "@motion-canvas/ffmpeg": "^1.1.0",
+    "@uiw/codemirror-theme-tokyo-night": "^4.25.8"
+  },
+  "devDependencies": {
+    "@motion-canvas/ui": "^3.17.2",
+    "@motion-canvas/vite-plugin": "^3.17.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.0.0"
+  }
+}
