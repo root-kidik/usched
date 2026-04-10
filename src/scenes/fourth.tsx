@@ -1,8 +1,9 @@
-import { makeScene2D } from '@motion-canvas/2d';
-import { all, beginSlide, createRef } from '@motion-canvas/core';
+import { Layout, makeScene2D, Rect, Txt } from '@motion-canvas/2d';
+import { all, beginSlide, createRef, makeRef } from '@motion-canvas/core';
 import { MyGrid } from '../components/My/MyGrid';
 import { RegisterTable } from '../components/RegisterTable';
 import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond } from '../theme/Colors';
+import { animationTime, fontFamilyDefault } from '../theme/Theme';
 
 export default makeScene2D(function* (view) {
     const grid = createRef<MyGrid>();
@@ -67,8 +68,105 @@ export default makeScene2D(function* (view) {
         ],
     ];
 
+    const callerSaved = createRef<Layout>();
+    const calleeSaved = createRef<Layout>();
+    const otherSaved = createRef<Layout>();
+
     view.add(
         <MyGrid ref={grid}>
+            <Layout 
+                x={-505}
+                y={-450}
+                ref={callerSaved} 
+                opacity={0}
+                layout
+                direction={"column"}
+                alignContent={"center"}
+                alignItems={"center"}
+                gap={20}
+            >
+                <Txt 
+                    fill={"#ffffff"} 
+                    text={"caller saved"} 
+                    fontFamily={fontFamilyDefault} 
+                    fontWeight={800} 
+                    fontSize={20} 
+                />
+
+                <Rect
+                    width={80}
+                    height={50}
+                    fill={BlueFirst}
+                    stroke={BlueSecond}
+                    lineWidth={6}
+                    radius={8}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                />
+            </Layout>
+
+            <Layout 
+                x={-40}
+                y={-450}
+                ref={calleeSaved} 
+                opacity={0}
+                layout
+                direction={"column"}
+                alignContent={"center"}
+                alignItems={"center"}
+                gap={20}
+            >
+                <Txt 
+                    fill={"#ffffff"} 
+                    text={"callee saved"} 
+                    fontFamily={fontFamilyDefault} 
+                    fontWeight={800} 
+                    fontSize={20} 
+                />
+
+                <Rect
+                    width={80}
+                    height={50}
+                    fill={RedFirst}
+                    stroke={RedSecond}
+                    lineWidth={6}
+                    radius={8}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                />
+            </Layout>
+
+            <Layout 
+                x={430}
+                y={-450}
+                ref={otherSaved} 
+                opacity={0}
+                layout
+                direction={"column"}
+                alignContent={"center"}
+                alignItems={"center"}
+                gap={20}
+            >
+                <Txt 
+                    fill={"#ffffff"} 
+                    text={"непременимо"} 
+                    fontFamily={fontFamilyDefault} 
+                    fontWeight={800} 
+                    fontSize={20} 
+                />
+
+                <Rect
+                    width={80}
+                    height={50}
+                    fill={BrownFirst}
+                    stroke={BrownSecond}
+                    lineWidth={6}
+                    radius={8}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                />
+            </Layout>
+
             <RegisterTable
                 ref={regs}
                 x={150}
@@ -124,9 +222,12 @@ export default makeScene2D(function* (view) {
     yield* all(
         grid().show(0),
         regs().showAll(0),
+        regs().y(100, animationTime),
         regs().hideCells(otherCoords),
         regs().hideCells(calleeSavedCoords),
         regs().changeColor(callerSavedCoords, { cell: BlueFirst, accent: BlueSecond }),
+        callerSaved().y(-400, animationTime),
+        callerSaved().opacity(1, animationTime),
     );
 
     yield* beginSlide("CALLE");
@@ -135,6 +236,9 @@ export default makeScene2D(function* (view) {
         regs().hideCells(callerSavedCoords),
         regs().showCells(calleeSavedCoords),
         regs().changeColor(calleeSavedCoords, { cell: RedFirst, accent: RedSecond }),
+        callerSaved().opacity(0.5, animationTime),
+        calleeSaved().y(-400, animationTime),
+        calleeSaved().opacity(1, animationTime),
     );
 
     yield* beginSlide("OTHERS");
@@ -142,12 +246,17 @@ export default makeScene2D(function* (view) {
     yield* all(
         regs().hideCells(calleeSavedCoords),
         regs().showCells(otherCoords),
+        calleeSaved().opacity(0.5, animationTime),
+        otherSaved().y(-400, animationTime),
+        otherSaved().opacity(1, animationTime),
     );
 
     yield* beginSlide("ALL");
 
     yield* all(
         regs().showAll(),
+        calleeSaved().opacity(1, animationTime),
+        callerSaved().opacity(1, animationTime),
     );
 
     yield* beginSlide("End");
