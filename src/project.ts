@@ -13,7 +13,8 @@ Code.defaultHighlighter = new LezerHighlighter(
 
 import first from './scenes/first?scene';
 import second from './scenes/second?scene';
+import third from './scenes/third?scene';
 
 export default makeProject({
-  scenes: [first, second],
+  scenes: [first, second, third],
 });
