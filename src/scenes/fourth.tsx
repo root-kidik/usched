@@ -2,7 +2,7 @@ import { makeScene2D } from '@motion-canvas/2d';
 import { all, beginSlide, createRef } from '@motion-canvas/core';
 import { MyGrid } from '../components/My/MyGrid';
 import { RegisterTable } from '../components/RegisterTable';
-import { BlueFirst, BlueSecond, BrownFirst, BrownSecond } from '../theme/Colors';
+import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond } from '../theme/Colors';
 
 export default makeScene2D(function* (view) {
     const grid = createRef<MyGrid>();
@@ -79,10 +79,75 @@ export default makeScene2D(function* (view) {
         </MyGrid>
     );
 
+    const otherCoords: [number, number][] = [
+        [0, 0],
+        [3, 0],
+        [4, 0],
+        [10, 2]
+    ];
+
+    const callerSavedCoords: [number, number][] = [
+        [1, 0],
+        [5, 0],
+        [6, 0],
+        [7, 0],
+        [10, 0],
+        [0, 1],
+        [1, 1],
+        [2, 1],
+        [3, 1],
+        [4, 1],
+        [5, 1],
+        [6, 1],
+        [6, 2],
+        [7, 2],
+        [8, 2],
+        [9, 2],
+    ];
+
+    const calleeSavedCoords: [number, number][] = [
+        [2, 0],
+        [8, 0],
+        [9, 0],
+        [7, 1],
+        [8, 1],
+        [9, 1],
+        [10, 1],
+        [0, 2],
+        [1, 2],
+        [2, 2],
+        [3, 2],
+        [4, 2],
+        [5, 2],
+    ];
+
     yield* all(
         grid().show(0),
         regs().showAll(0),
-        regs().changeColor(1, 0, { cell: BlueFirst, accent: BlueSecond }),
+        regs().hideCells(otherCoords),
+        regs().hideCells(calleeSavedCoords),
+        regs().changeColor(callerSavedCoords, { cell: BlueFirst, accent: BlueSecond }),
+    );
+
+    yield* beginSlide("CALLE");
+
+    yield* all(
+        regs().hideCells(callerSavedCoords),
+        regs().showCells(calleeSavedCoords),
+        regs().changeColor(calleeSavedCoords, { cell: RedFirst, accent: RedSecond }),
+    );
+
+    yield* beginSlide("OTHERS");
+
+    yield* all(
+        regs().hideCells(calleeSavedCoords),
+        regs().showCells(otherCoords),
+    );
+
+    yield* beginSlide("ALL");
+
+    yield* all(
+        regs().showAll(),
     );
 
     yield* beginSlide("End");

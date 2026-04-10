@@ -109,18 +109,21 @@ export class RegisterTable extends Rect {
     }
 
     public *changeColor(
-        row: number,
-        col: number,
-        colors: { cell?: string; accent?: string },
+        coords: [number, number][], 
+        colors: { cell?: string; accent?: string }, 
         duration: number = animationTime
     ) {
-        const rect = this.rectRefs[row][col]();
-        if (rect) {
-            const animations = [];
-            if (colors.cell) animations.push(rect.fill(colors.cell, duration));
-            if (colors.accent) animations.push(rect.stroke(colors.accent, duration));
-            yield* all(...animations);
+        const animations = [];
+
+        for (const [row, col] of coords) {
+            const rect = this.rectRefs[row]?.[col]?.();
+            if (rect) {
+                if (colors.cell) animations.push(rect.fill(colors.cell, duration));
+                if (colors.accent) animations.push(rect.stroke(colors.accent, duration));
+            }
         }
+
+        yield* all(...animations);
     }
 
     public *changeName(row: number, col: number, newName: string, duration: number = animationTime) {
@@ -135,9 +138,35 @@ export class RegisterTable extends Rect {
         if (cell) yield* cell.opacity(1, duration);
     }
 
+    public *showCells(coords: [number, number][], duration: number = animationTime) {
+        const animations = [];
+
+        for (const [row, col] of coords) {
+            const cell = this.cells[row]?.[col]?.();
+            if (cell) {
+                animations.push(cell.opacity(1, duration));
+            }
+        }
+
+        yield* all(...animations);
+    }
+
     public *hideCell(row: number, col: number, duration: number = animationTime) {
         const cell = this.cells[row][col]();
         if (cell) yield* cell.opacity(0.3, duration);
+    }
+
+    public *hideCells(coords: [number, number][], duration: number = animationTime) {
+        const animations = [];
+
+        for (const [row, col] of coords) {
+            const cell = this.cells[row]?.[col]?.();
+            if (cell) {
+                animations.push(cell.opacity(0.3, duration));
+            }
+        }
+
+        yield* all(...animations);
     }
 
     public *showAll(duration: number = animationTime) {

@@ -3,7 +3,7 @@ import { InstructionTable } from '../components/InstructionTable';
 import { MyGrid } from '../components/My/MyGrid';
 import { all, beginSlide, createRef } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
-import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, GreenFirst, GreenSecond, RedFirst, RedSecond, VioletFirst, VioletSecond } from '../theme/Colors';
+import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, GreenFirst, GreenSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond, VioletFirst, VioletSecond } from '../theme/Colors';
 
 export default makeScene2D(function* (view) {
     const grid = createRef<MyGrid>();
@@ -113,8 +113,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="c"
                 rows={c_data}
-                strokeColor={"rgb(220, 70, 20)"}
-                color={"rgb(150, 0, 0)"}
+                strokeColor={OrangeFirst}
+                color={OrangeSecond}
             />
         </MyGrid>
     );
