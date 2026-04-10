@@ -21,6 +21,7 @@ export interface RegisterTableProps extends RectProps {
 export class RegisterTable extends Rect {
     private cells: Reference<Layout>[][] = [];
     private nameRefs: Reference<Txt>[][] = [];
+    private rectRefs: Reference<Rect>[][] = [];
 
     public constructor(props: RegisterTableProps) {
         super({
@@ -44,15 +45,18 @@ export class RegisterTable extends Rect {
                 {props.rowsData.map((row, rowIndex) => {
                     this.cells[rowIndex] = [];
                     this.nameRefs[rowIndex] = [];
+                    this.rectRefs[rowIndex] = [];
 
                     return (
-                        <Layout direction={'row'} gap={20}> 
+                        <Layout direction={'row'} gap={20}>
                             {row.map((reg, colIndex) => {
                                 const containerRef = createRef<Layout>();
                                 const nameRef = createRef<Txt>();
-                                
+                                const rectRef = createRef<Rect>();
+
                                 this.cells[rowIndex][colIndex] = containerRef;
                                 this.nameRefs[rowIndex][colIndex] = nameRef;
+                                this.rectRefs[rowIndex][colIndex] = rectRef;
 
                                 return (
                                     <Layout
@@ -65,6 +69,7 @@ export class RegisterTable extends Rect {
                                         width={columnWidth}
                                     >
                                         <Rect
+                                            ref={rectRef}
                                             width={blockWidth}
                                             height={blockHeight}
                                             fill={cellColor}
@@ -75,7 +80,7 @@ export class RegisterTable extends Rect {
                                             alignItems={'center'}
                                         >
                                             <Txt
-                                                ref={nameRef} // Привязываем ссылку
+                                                ref={nameRef}
                                                 text={reg.name}
                                                 fill={"#ffffff"}
                                                 fontSize={fontSize}
@@ -101,6 +106,21 @@ export class RegisterTable extends Rect {
                 })}
             </Layout>
         );
+    }
+
+    public *changeColor(
+        row: number,
+        col: number,
+        colors: { cell?: string; accent?: string },
+        duration: number = animationTime
+    ) {
+        const rect = this.rectRefs[row][col]();
+        if (rect) {
+            const animations = [];
+            if (colors.cell) animations.push(rect.fill(colors.cell, duration));
+            if (colors.accent) animations.push(rect.stroke(colors.accent, duration));
+            yield* all(...animations);
+        }
     }
 
     public *changeName(row: number, col: number, newName: string, duration: number = animationTime) {

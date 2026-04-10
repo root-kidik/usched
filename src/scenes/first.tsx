@@ -5,6 +5,7 @@ import logoImg from '../images/mk.png';
 import { animationTime, fontFamilyDefault } from '../theme/Theme';
 import { Stack } from '../components/Stack';
 import { MyGrid } from '../components/My/MyGrid';
+import { BlueFirst, BrownFirst, GreenFirst, OrangeFirst, OrangeSecond, VioletFirst, VioletSecond, WhiteFirst } from '../theme/Colors';
 
 function ColoredISA({ parts, ...props }: { parts: { text: string, color: string }[] } & RectProps) {
     return (
@@ -21,7 +22,7 @@ function ColoredISA({ parts, ...props }: { parts: { text: string, color: string 
                     {index < parts.length - 1 && (
                         <Txt
                             text="_"
-                            fill={"rgb(255, 255, 255)"}
+                            fill={WhiteFirst}
                             fontSize={28}
                             fontWeight={800}
                             fontFamily={fontFamilyDefault}
@@ -47,11 +48,11 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 y={-600}
                 parts={[
-                    { text: "rv32i", color: "rgb(50, 200, 50)" },
-                    { text: "m", color: "rgb(120, 0, 220)" },
-                    { text: "c", color: "rgb(220, 70, 20)" },
-                    { text: "zicsr", color: "rgb(0, 150, 255)" },
-                    { text: "zifencei", color: "rgb(150, 50, 20)" }
+                    { text: "rv32i", color: GreenFirst },
+                    { text: "m", color: VioletSecond },
+                    { text: "c", color: OrangeFirst },
+                    { text: "zicsr", color: BlueFirst },
+                    { text: "zifencei", color: BrownFirst }
                 ]}
             />
 
@@ -71,8 +72,8 @@ export default makeScene2D(function* (view) {
                 amount={4}
                 blockWidth={200}
                 blockHeight={50}
-                stroke_color={"rgb(120, 0, 220)"}
-                color={"rgb(50, 0, 150)"}
+                stroke_color={VioletSecond}
+                color={VioletFirst}
                 top_address={"0x01002000"}
                 bot_address={"0x01000000"}
                 x={-600}
@@ -86,8 +87,8 @@ export default makeScene2D(function* (view) {
                 amount={8}
                 blockWidth={200}
                 blockHeight={50}
-                stroke_color={"rgb(220, 70, 20)"}
-                color={"rgb(100, 50, 20)"}
+                stroke_color={OrangeFirst}
+                color={OrangeSecond}
                 top_address={"0x02004000"}
                 bot_address={"0x02000000"}
                 x={600}

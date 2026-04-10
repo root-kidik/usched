@@ -2,6 +2,7 @@ import { makeScene2D } from '@motion-canvas/2d';
 import { all, beginSlide, createRef } from '@motion-canvas/core';
 import { MyGrid } from '../components/My/MyGrid';
 import { RegisterTable } from '../components/RegisterTable';
+import { BrownFirst, BrownSecond } from '../theme/Colors';
 
 export default makeScene2D(function* (view) {
     const grid = createRef<MyGrid>();
@@ -72,8 +73,8 @@ export default makeScene2D(function* (view) {
                 ref={regs}
                 x={150}
                 rowsData={rows}
-                accentColor={"rgb(130, 100, 90)"}
-                cellColor={"rgb(81, 56, 47)"}
+                cellColor={BrownFirst}
+                accentColor={BrownSecond}
             />
         </MyGrid>
     );

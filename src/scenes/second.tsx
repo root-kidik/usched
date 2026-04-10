@@ -3,6 +3,7 @@ import { InstructionTable } from '../components/InstructionTable';
 import { MyGrid } from '../components/My/MyGrid';
 import { all, beginSlide, createRef } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
+import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, GreenFirst, GreenSecond, RedFirst, RedSecond, VioletFirst, VioletSecond } from '../theme/Colors';
 
 export default makeScene2D(function* (view) {
     const grid = createRef<MyGrid>();
@@ -62,8 +63,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="rv32i"
                 rows={rv32i_data}
-                strokeColor={"rgb(50, 200, 50)"}
-                color={"rgb(50, 100, 50)"}
+                strokeColor={GreenFirst}
+                color={GreenSecond}
             />
 
             <InstructionTable
@@ -72,8 +73,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="zicsr"
                 rows={zicsr_data}
-                strokeColor={"rgb(0, 150, 255)"}
-                color={"rgb(0, 50, 255)"}
+                strokeColor={BlueSecond}
+                color={BlueFirst}
             />
 
             <InstructionTable
@@ -82,8 +83,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="zifenci"
                 rows={zifenci_data}
-                strokeColor={"rgb(150, 50, 20)"}
-                color={"rgb(120, 0, 20)"}
+                strokeColor={BrownFirst}
+                color={BrownSecond}
             />
 
             <InstructionTable
@@ -92,8 +93,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="m"
                 rows={m_data}
-                strokeColor={"rgb(120, 0, 220)"}
-                color={"rgb(50, 0, 150)"}
+                strokeColor={VioletSecond}
+                color={VioletFirst}
             />
 
             <InstructionTable
@@ -102,8 +103,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="system"
                 rows={system_data}
-                strokeColor={"rgb(220, 80, 0)"}
-                color={"rgb(150, 80, 0)"}
+                strokeColor={RedFirst}
+                color={RedSecond}
             />
 
             <InstructionTable
