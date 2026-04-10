@@ -48,10 +48,10 @@ export default makeScene2D(function* (view) {
                 y={-600}
                 parts={[
                     { text: "rv32i", color: "rgb(50, 200, 50)" },
-                    { text: "m", color: "rgb(120, 0, 230)" },
+                    { text: "m", color: "rgb(120, 0, 220)" },
                     { text: "c", color: "rgb(220, 70, 20)" },
                     { text: "zicsr", color: "rgb(0, 150, 255)" },
-                    { text: "zifencei", color: "rgb(120, 50, 20)" }
+                    { text: "zifencei", color: "rgb(150, 50, 20)" }
                 ]}
             />
 
@@ -71,8 +71,8 @@ export default makeScene2D(function* (view) {
                 amount={4}
                 blockWidth={200}
                 blockHeight={50}
-                stroke_color={"rgb(120, 0, 230)"}
-                color={"rgb(80, 0, 150)"}
+                stroke_color={"rgb(120, 0, 220)"}
+                color={"rgb(50, 0, 150)"}
                 top_address={"0x01002000"}
                 bot_address={"0x01000000"}
                 x={-600}

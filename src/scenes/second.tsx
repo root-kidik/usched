@@ -82,7 +82,7 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="zifenci"
                 rows={zifenci_data}
-                strokeColor={"rgb(120, 50, 20)"}
+                strokeColor={"rgb(150, 50, 20)"}
                 color={"rgb(120, 0, 20)"}
             />
 
@@ -92,8 +92,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="m"
                 rows={m_data}
-                strokeColor={"rgb(120, 0, 230)"}
-                color={"rgb(120, 0, 200)"}
+                strokeColor={"rgb(120, 0, 220)"}
+                color={"rgb(50, 0, 150)"}
             />
 
             <InstructionTable
@@ -102,8 +102,8 @@ export default makeScene2D(function* (view) {
                 opacity={0}
                 title="system"
                 rows={system_data}
-                strokeColor={"rgb(220, 50, 20)"}
-                color={"rgb(150, 0, 20)"}
+                strokeColor={"rgb(220, 80, 0)"}
+                color={"rgb(150, 80, 0)"}
             />
 
             <InstructionTable
@@ -118,11 +118,9 @@ export default makeScene2D(function* (view) {
         </MyGrid>
     );
 
-    yield* grid().show(0);
-
-    yield* beginSlide("RV32I");
 
     yield* all(
+        grid().show(0),
         rv32i().opacity(1, animationTime),
         rv32i().x(0, animationTime)
     );
