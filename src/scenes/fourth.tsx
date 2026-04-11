@@ -127,8 +127,8 @@ export default makeScene2D(function* (view) {
                 <Rect
                     width={80}
                     height={50}
-                    fill={RedFirst}
-                    stroke={RedSecond}
+                    fill={RedSecond}
+                    stroke={RedFirst}
                     lineWidth={6}
                     radius={8}
                     justifyContent={'center'}
@@ -158,8 +158,8 @@ export default makeScene2D(function* (view) {
                 <Rect
                     width={80}
                     height={50}
-                    fill={BrownFirst}
-                    stroke={BrownSecond}
+                    fill={BrownSecond}
+                    stroke={BrownFirst}
                     lineWidth={6}
                     radius={8}
                     justifyContent={'center'}
@@ -171,8 +171,8 @@ export default makeScene2D(function* (view) {
                 ref={regs}
                 x={150}
                 rowsData={rows}
-                cellColor={BrownFirst}
-                accentColor={BrownSecond}
+                cellColor={BrownSecond}
+                accentColor={BrownFirst}
             />
         </MyGrid>
     );
@@ -235,7 +235,7 @@ export default makeScene2D(function* (view) {
     yield* all(
         regs().hideCells(callerSavedCoords),
         regs().showCells(calleeSavedCoords),
-        regs().changeColor(calleeSavedCoords, { cell: RedFirst, accent: RedSecond }),
+        regs().changeColor(calleeSavedCoords, { accent: RedFirst, cell: RedSecond }),
         callerSaved().opacity(0.5, animationTime),
         calleeSaved().y(-400, animationTime),
         calleeSaved().opacity(1, animationTime),

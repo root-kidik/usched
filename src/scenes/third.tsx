@@ -73,8 +73,8 @@ export default makeScene2D(function* (view) {
                 ref={regs}
                 x={150}
                 rowsData={rows}
-                cellColor={BrownFirst}
-                accentColor={BrownSecond}
+                cellColor={BrownSecond}
+                accentColor={BrownFirst}
             />
         </MyGrid>
     );

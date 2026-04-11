@@ -75,8 +75,8 @@ export default makeScene2D(function* (view) {
             <RegisterTableV2
                 ref={regs}
                 rowsData={rows}
-                cellColor={BrownFirst}
-                accentColor={BrownSecond}
+                cellColor={BrownSecond}
+                accentColor={BrownFirst}
             />
         </MyGrid>
     );
@@ -160,7 +160,7 @@ sum(int, int):
     yield* beginSlide("callee saved");
 
     yield* all(
-        regs().changeColor([[0, 1], [0, 2]], { cell: RedFirst, accent: RedSecond }),
+        regs().changeColor([[0, 1], [0, 2]], { accent: RedFirst, cell: RedSecond }),
     );
 
     yield* beginSlide("End");
