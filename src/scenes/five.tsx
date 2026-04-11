@@ -5,7 +5,7 @@ import { MyGrid } from '../components/My/MyGrid';
 import { MyCode } from '../components/My/MyCode';
 import { MyRect } from '../components/My/MyRect';
 import { StackV2 } from '../components/StackV2';
-import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond, VioletFirst, VioletSecond } from '../theme/Colors';
+import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond, VioletFirst, VioletSecond, WhiteFirst } from '../theme/Colors';
 import { RegisterTableV2 } from '../components/RegisterTableV2';
 
 export default makeScene2D(function* (view) {
@@ -226,6 +226,16 @@ sum(int, int):
         sram().setText(2, "s0"),
         sram().changeColor(2, RedSecond, RedFirst),
     );
+
+    yield* all(
+        regs().showCell(0, 2),
+        regs().changeColor([[0, 2]], { cell: RedSecond, accent: WhiteFirst }),
+        regs().changeValue(0, 2, "a0+a1")
+    );
+
+    yield* all(
+        regs().changeColor([[0, 2]], { cell: RedSecond, accent: RedFirst }),
+    )
 
     yield* beginSlide("End");
 });

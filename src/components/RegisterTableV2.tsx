@@ -33,7 +33,7 @@ export class RegisterTableV2 extends Rect {
             ...props,
         });
 
-        const blockWidth = props.blockWidth ?? 80;
+        const blockWidth = props.blockWidth ?? 100;
         const blockHeight = props.blockHeight ?? 50;
         const columnWidth = props.columnWidth ?? 100;
         const accentColor = props.accentColor ?? '#4e9e4e';
@@ -42,7 +42,7 @@ export class RegisterTableV2 extends Rect {
         const titleFontSize = props.titleFontSize ?? 24;
 
         this.add(
-            <Layout layout direction={'column'} gap={30} alignItems={'start'}>
+            <Layout layout direction={'column'} gap={20} alignItems={'start'}>
                 {props.rowsData.map((row, rowIndex) => {
                     this.cells[rowIndex] = [];
                     this.titleRefs[rowIndex] = [];
@@ -50,7 +50,7 @@ export class RegisterTableV2 extends Rect {
                     this.rectRefs[rowIndex] = [];
 
                     return (
-                        <Layout direction={'row'} gap={20}>
+                        <Layout direction={'row'} gap={50}>
                             {row.map((reg, colIndex) => {
                                 const containerRef = createRef<Layout>();
                                 const titleRef = createRef<Txt>();
