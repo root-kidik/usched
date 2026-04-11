@@ -197,11 +197,34 @@ sum(int, int):
     yield* beginSlide("SAVE RA");
 
     yield* all(
-        cppcode().selection(lines(3), animationTime),
         asmcode().selection(lines(2), animationTime),
         regs().showCell(0, 0),
         sram().setText(3, "ra"),
         sram().changeColor(3, BlueFirst, BlueSecond),
+    );
+
+    yield* beginSlide("SAVE S0");
+
+    yield* all(
+        asmcode().selection(lines(3), animationTime),
+        regs().hideCell(0, 0),
+        regs().showCell(0, 2),
+        sram().hideOne(3),
+        sram().setText(2, "s0"),
+        sram().changeColor(2, RedSecond, RedFirst),
+    );
+
+    yield* beginSlide("A0 + A1");
+
+    yield* all(
+        cppcode().selection(lines(4), animationTime),
+        asmcode().selection(lines(4), animationTime),
+        regs().hideCell(0, 2),
+        regs().showCell(0, 3),
+        regs().showCell(0, 4),
+        sram().hideOne(3),
+        sram().setText(2, "s0"),
+        sram().changeColor(2, RedSecond, RedFirst),
     );
 
     yield* beginSlide("End");
