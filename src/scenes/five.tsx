@@ -163,5 +163,13 @@ sum(int, int):
         regs().changeColor([[0, 1], [0, 2]], { accent: RedFirst, cell: RedSecond }),
     );
 
+    yield* beginSlide("ALL");
+
+    yield* all(
+        eeprom().opacity(1, animationTime),
+        sram().opacity(1, animationTime),
+        codelayout().opacity(1, animationTime)
+    );
+
     yield* beginSlide("End");
 });
