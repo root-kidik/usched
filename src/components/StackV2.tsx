@@ -60,6 +60,7 @@ export class StackV2 extends Rect {
                                         fill={'white'}
                                         fontSize={24}
                                         fontFamily={fontFamilyDefault}
+                                        fontWeight={800}
                                     />
                                 </Rect>
                             );

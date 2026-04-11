@@ -132,12 +132,18 @@ sum(int, int):
         sram().x(150, animationTime)
     );
 
-    yield* beginSlide("SRAM");
+    yield* beginSlide("EEPROM");
 
     yield* all(
         sram().opacity(0.5, animationTime),
         eeprom().opacity(1, animationTime),
         eeprom().x(700, animationTime),
+    );
+
+    yield* beginSlide("EEPROM STR");
+
+    yield* all(
+        eeprom().setText(3, "%d")
     );
 
     yield* beginSlide("Registers");
