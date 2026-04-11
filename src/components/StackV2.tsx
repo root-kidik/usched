@@ -10,8 +10,6 @@ export interface StackV2Props extends RectProps {
     blockHeight: number;
     color: string;
     stroke_color: string;
-    top_address: string;
-    bot_address: string;
 }
 
 export class StackV2 extends Rect {
@@ -39,15 +37,6 @@ export class StackV2 extends Rect {
                 />
 
                 <Rect direction={'column'} gap={20} alignItems={'center'}>
-                    <Txt
-                        text={props.top_address}
-                        fill={'rgb(255, 255, 255)'}
-                        fontSize={28}
-                        fontWeight={800}
-                        fontFamily={fontFamilyDefault}
-                        textAlign={"center"}
-                    />
-
                     <Layout gap={10} direction={'column'} alignItems={'center'}>
                         {range(props.amount).map(i => {
                             const blockRef = createRef<Rect>();
@@ -81,15 +70,6 @@ export class StackV2 extends Rect {
                             return element;
                         })}
                     </Layout>
-
-                    <Txt
-                        text={props.bot_address}
-                        fill={'rgb(255, 255, 255)'}
-                        fontSize={28}
-                        fontWeight={800}
-                        fontFamily={fontFamilyDefault}
-                        textAlign={"center"}
-                    />
                 </Rect>
             </>
         );
