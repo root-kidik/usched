@@ -1,4 +1,4 @@
-import { CODE, Layout, lines, makeScene2D } from '@motion-canvas/2d';
+import { CODE, Layout, lines, makeScene2D, word } from '@motion-canvas/2d';
 import { all, beginSlide, createRef } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
 import { MyGrid } from '../components/My/MyGrid';
@@ -115,6 +115,7 @@ sum(int, int):
     call    printf
     mv      a0, s0
     lw      ra, 12(sp)
+    lw      s0, 8(sp)
     addi    sp, sp, 16
     ret
 
@@ -206,6 +207,7 @@ sum(int, int):
     yield* beginSlide("SAVE S0");
 
     yield* all(
+        sram().hideOne(3),
         asmcode().selection(lines(3), animationTime),
         regs().hideCell(0, 0),
         regs().showCell(0, 2),
@@ -217,6 +219,9 @@ sum(int, int):
     yield* beginSlide("A0 + A1");
 
     yield* all(
+        sram().hideOne(2),
+        sram().hideOne(1),
+        sram().hideOne(0),
         cppcode().selection(lines(4), animationTime),
         asmcode().selection(lines(4), animationTime),
         regs().hideCell(0, 2),
@@ -228,6 +233,8 @@ sum(int, int):
     );
 
     yield* all(
+        regs().hideCell(0, 3),
+        regs().hideCell(0, 4),
         regs().showCell(0, 2),
         regs().changeColor([[0, 2]], { cell: RedSecond, accent: WhiteFirst }),
         regs().changeValue(0, 2, "a0+a1")
@@ -236,6 +243,122 @@ sum(int, int):
     yield* all(
         regs().changeColor([[0, 2]], { cell: RedSecond, accent: RedFirst }),
     )
+
+    yield* beginSlide("auipc");
+
+    yield* all(
+        regs().hideCell(0, 2),
+        eeprom().opacity(1, animationTime),
+        eeprom().hideOne(0),
+        eeprom().hideOne(1),
+        eeprom().hideOne(2),
+        cppcode().selection(word(5, 11, 4), animationTime),
+        asmcode().selection(lines(7, 8), animationTime),
+        regs().showCell(0, 3),
+        regs().changeValue(0, 3, "&%d"),
+    );
+
+    yield* beginSlide("mv a1, s0");
+
+    yield* all(
+        cppcode().selection(word(5, 17, 1), animationTime),
+        asmcode().selection(lines(9), animationTime),
+        eeprom().hideOne(3),
+        regs().hideCell(0, 3),
+        regs().showCell(0, 2),
+        regs().showCell(0, 4),
+    );
+
+    yield* all(
+        regs().hideCell(0, 2),
+        regs().changeColor([[0, 4]], { cell: BlueFirst, accent: WhiteFirst }),
+        regs().changeValue(0, 4, "a0+a1")
+    );
+
+    yield* all(
+        regs().changeColor([[0, 4]], { cell: BlueFirst, accent: BlueSecond }),
+    );
+
+    yield* beginSlide("printf");
+
+    yield* all(
+        cppcode().selection(lines(5), animationTime),
+        asmcode().selection(lines(10), animationTime),
+        regs().showCell(0, 3),
+    );
+
+    yield* beginSlide("printf ended");
+
+    yield* all(
+        cppcode().selection(lines(1), animationTime),
+        asmcode().selection(lines(5), animationTime),
+        regs().hideCell(0, 3),
+        regs().hideCell(0, 4),
+        regs().changeValue(0, 3, ""),
+        regs().changeValue(0, 4, ""),
+    );
+
+    yield* beginSlide("mv a1, s0");
+
+    yield* all(
+        cppcode().selection(lines(6), animationTime),
+        asmcode().selection(lines(11), animationTime),
+        regs().showCell(0, 2),
+        regs().showCell(0, 3),
+    );
+
+    yield* all(
+        regs().hideCell(0, 2),
+        regs().changeValue(0, 3, "a0+a1"),
+        regs().changeColor([[0, 3]], { cell: BlueFirst, accent: WhiteFirst }),
+    );
+
+    yield* all(
+        regs().changeColor([[0, 3]], { cell: BlueFirst, accent: BlueSecond }),
+    );
+
+    yield* beginSlide("lw ra, 12(sp)");
+
+    yield* all(
+        asmcode().selection(lines(12), animationTime),
+        sram().showOne(3),
+        regs().hideCell(0, 3),
+        regs().showCell(0, 0),
+    );
+
+    yield* all(
+        sram().changeColor(3, OrangeSecond, OrangeFirst),
+    );
+
+    yield* beginSlide("lw s0, 8(sp)");
+
+    yield* all(
+        asmcode().selection(lines(13), animationTime),
+        sram().hideOne(3),
+        regs().hideCell(0, 0),
+        sram().showOne(2),
+        regs().showCell(0, 2),
+        regs().changeValue(0, 2, ""),
+    );
+
+    yield* all(
+        sram().changeColor(2, OrangeSecond, OrangeFirst),
+    );
+
+    yield* beginSlide("restore sp");
+
+    yield* all(
+        sram().hideOne(2),
+        asmcode().selection(lines(14), animationTime),
+        regs().hideCell(0, 2),
+    );
+
+    yield* beginSlide("ret");
+
+    yield* all(
+        asmcode().selection(lines(15), animationTime),
+        regs().showCell(0, 3)
+    );
 
     yield* beginSlide("End");
 });
