@@ -102,7 +102,10 @@ export class StackV2 extends Rect {
         yield* this.texts[index].text(text, duration);
     }
 
-    public *changeColor(index: number, color: string, duration: number = animationTime) {
-        yield* this.blocks[index].fill(color, duration);
+    public *changeColor(index: number, first_color: string, second_color: string, duration: number = animationTime) {
+        yield* all(
+            this.blocks[index].fill(first_color, duration),
+            this.blocks[index].stroke(second_color, duration),
+        );
     }
 }

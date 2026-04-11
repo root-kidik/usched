@@ -1,4 +1,4 @@
-import { CODE, Layout, makeScene2D } from '@motion-canvas/2d';
+import { CODE, Layout, lines, makeScene2D } from '@motion-canvas/2d';
 import { all, beginSlide, createRef } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
 import { MyGrid } from '../components/My/MyGrid';
@@ -175,6 +175,33 @@ sum(int, int):
         eeprom().opacity(1, animationTime),
         sram().opacity(1, animationTime),
         codelayout().opacity(1, animationTime)
+    );
+
+    yield* beginSlide("STACK POINTER");
+
+    yield* all(
+        eeprom().opacity(0.5, animationTime),
+        regs().hideCell(0, 0),
+        regs().hideCell(0, 1),
+        regs().hideCell(0, 2),
+        regs().hideCell(0, 3),
+        regs().hideCell(0, 4),
+        cppcode().selection(lines(3), animationTime),
+        asmcode().selection(lines(1), animationTime),
+        sram().hideOne(4),
+        sram().hideOne(5),
+        sram().hideOne(6),
+        sram().hideOne(7),
+    );
+
+    yield* beginSlide("SAVE RA");
+
+    yield* all(
+        cppcode().selection(lines(3), animationTime),
+        asmcode().selection(lines(2), animationTime),
+        regs().showCell(0, 0),
+        sram().setText(3, "ra"),
+        sram().changeColor(3, BlueFirst, BlueSecond),
     );
 
     yield* beginSlide("End");

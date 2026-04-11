@@ -75,7 +75,7 @@ export class RegisterTableV2 extends Rect {
                                         <Txt
                                             ref={titleRef}
                                             text={reg.name}
-                                            fill={accentColor} // Цвет заголовка в тон акценту
+                                            fill={"rgb(255, 255, 255)"} // Цвет заголовка в тон акценту
                                             fontSize={titleFontSize}
                                             fontFamily={fontFamilyDefault}
                                             fontWeight={800}
@@ -155,9 +155,9 @@ export class RegisterTableV2 extends Rect {
                     animations.push(rect.stroke(colors.accent, duration));
 
                     // Если есть accent, автоматически красим имя регистра сверху в этот же цвет
-                    if (title) {
-                        animations.push(title.fill(colors.accent, duration));
-                    }
+                    // if (title) {
+                        // animations.push(title.fill(colors.accent, duration));
+                    // }
                 }
             }
         }
