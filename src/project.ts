@@ -15,7 +15,8 @@ import first from './scenes/first?scene';
 import second from './scenes/second?scene';
 import third from './scenes/third?scene';
 import fourth from './scenes/fourth?scene';
+import five from './scenes/five?scene';
 
 export default makeProject({
-  scenes: [first, second, third, fourth],
+  scenes: [first, second, third, fourth, five],
 });

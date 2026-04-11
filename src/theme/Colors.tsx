@@ -3,7 +3,7 @@ export const WhiteFirst = "rgb(255, 255, 255)";
 export const VioletFirst = "rgb(50, 0, 150)";
 export const VioletSecond = "rgb(120, 0, 220)";
 
-export const BlueFirst = "rgb(0, 50, 255)";
+export const BlueFirst = "rgb(0, 50, 200)";
 export const BlueSecond = "rgb(0, 150, 255)";
 
 export const BrownFirst = "rgb(80, 50, 50)";

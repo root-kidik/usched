@@ -6,7 +6,7 @@ export class MyCode extends Code {
         super({
             fontFamily: fontFamilyDefault,
             fontWeight: fontWeightBold,
-            fontSize: fontSizeNormal,
+            fontSize: 24,
             ...props,
         });
     }
