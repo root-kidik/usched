@@ -200,20 +200,25 @@ sum(int, int):
     yield* all(
         asmcode().selection(lines(2), animationTime),
         regs().showCell(0, 0),
-        sram().setText(3, "ra"),
-        sram().changeColor(3, BlueFirst, BlueSecond),
+        sram().setText(0, "ra"),
+        sram().changeColor(0, BlueFirst, BlueSecond),
     );
 
     yield* beginSlide("SAVE S0");
 
     yield* all(
-        sram().hideOne(3),
         asmcode().selection(lines(3), animationTime),
         regs().hideCell(0, 0),
         regs().showCell(0, 2),
-        sram().hideOne(3),
-        sram().setText(2, "s0"),
-        sram().changeColor(2, RedSecond, RedFirst),
+        sram().hideOne(0),
+        sram().setText(1, "s0"),
+        sram().changeColor(1, RedSecond, RedFirst),
+    );
+
+    yield* beginSlide("EMPTY TWO");
+
+    yield* all(
+        sram().hideAll()
     );
 
     yield* beginSlide("A0 + A1");
@@ -228,8 +233,6 @@ sum(int, int):
         regs().showCell(0, 3),
         regs().showCell(0, 4),
         sram().hideOne(3),
-        sram().setText(2, "s0"),
-        sram().changeColor(2, RedSecond, RedFirst),
     );
 
     yield* all(
@@ -321,34 +324,34 @@ sum(int, int):
 
     yield* all(
         asmcode().selection(lines(12), animationTime),
-        sram().showOne(3),
+        sram().showOne(0),
         regs().hideCell(0, 3),
         regs().showCell(0, 0),
     );
 
     yield* all(
-        sram().changeColor(3, OrangeSecond, OrangeFirst),
+        sram().changeColor(0, OrangeSecond, OrangeFirst),
     );
 
     yield* beginSlide("lw s0, 8(sp)");
 
     yield* all(
         asmcode().selection(lines(13), animationTime),
-        sram().hideOne(3),
+        sram().hideOne(0),
         regs().hideCell(0, 0),
-        sram().showOne(2),
+        sram().showOne(1),
         regs().showCell(0, 2),
         regs().changeValue(0, 2, ""),
     );
 
     yield* all(
-        sram().changeColor(2, OrangeSecond, OrangeFirst),
+        sram().changeColor(1, OrangeSecond, OrangeFirst),
     );
 
     yield* beginSlide("restore sp");
 
     yield* all(
-        sram().hideOne(2),
+        sram().hideOne(1),
         asmcode().selection(lines(14), animationTime),
         regs().hideCell(0, 2),
     );
