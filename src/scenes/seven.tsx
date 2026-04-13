@@ -5,15 +5,21 @@ import { MyGrid } from '../components/My/MyGrid';
 import { GreenFirst, GreenSecond, OrangeFirst, OrangeSecond, VioletFirst, VioletSecond } from '../theme/Colors';
 import { StackV3 } from '../components/StackV3';
 import { RegisterTableV2 } from '../components/RegisterTableV2';
+import { StackV4 } from '../components/StackV4';
 
 export default makeScene2D(function* (view) {
     const grid = createRef<MyGrid>();
     const sram = createRef<StackV3>();
-    const t1 = createRef<StackV3>();
-    const t2 = createRef<StackV3>();
 
+    const t1 = createRef<StackV3>();
     const sp1 = createRef<RegisterTableV2>();
+    const t1i1 = createRef<StackV4>();
+    const t1i2 = createRef<StackV4>();
+
+    const t2 = createRef<StackV3>();
     const sp2 = createRef<RegisterTableV2>();
+    const t2i1 = createRef<StackV4>();
+    const t2i2 = createRef<StackV4>();
 
     view.add(
         <MyGrid ref={grid}>
@@ -22,8 +28,8 @@ export default makeScene2D(function* (view) {
                 title="SRAM"
                 capacity="16 KB"
                 amount={8}
-                blockWidth={200}
-                blockHeight={50}
+                blockWidth={160}
+                blockHeight={40}
                 stroke_color={OrangeFirst}
                 color={OrangeSecond}
                 top_address={"0x02004000"}
@@ -37,8 +43,8 @@ export default makeScene2D(function* (view) {
                 title="Thread 1"
                 capacity="2 KB"
                 amount={4}
-                blockWidth={200}
-                blockHeight={50}
+                blockWidth={160}
+                blockHeight={40}
                 stroke_color={GreenFirst}
                 color={GreenSecond}
                 top_address={"0x02004000"}
@@ -53,8 +59,8 @@ export default makeScene2D(function* (view) {
                 title="Thread 2"
                 capacity="2 KB"
                 amount={4}
-                blockWidth={200}
-                blockHeight={50}
+                blockWidth={160}
+                blockHeight={40}
                 stroke_color={VioletSecond}
                 color={VioletFirst}
                 top_address={"0x02003800"}
@@ -71,7 +77,7 @@ export default makeScene2D(function* (view) {
                 cellColor={GreenSecond}
                 x={-400}
                 y={-200}
-                blockWidth={200}
+                blockWidth={160}
             />
 
             <RegisterTableV2
@@ -81,7 +87,63 @@ export default makeScene2D(function* (view) {
                 cellColor={VioletFirst}
                 x={400}
                 y={-200}
-                blockWidth={200}
+                blockWidth={160}
+            />
+
+            <StackV4 
+                ref={t1i1}
+                amount={4}
+                blockWidth={160}
+                blockHeight={40}
+                stroke_color={GreenFirst}
+                color={GreenSecond}
+                top_address={"0x02004000"}
+                bot_address={"0x02003F00"}
+                y={600}
+                x={-400}
+                opacity={0}
+            />
+
+            <StackV4 
+                ref={t1i2}
+                amount={16}
+                blockWidth={160}
+                blockHeight={40}
+                stroke_color={GreenFirst}
+                color={GreenSecond}
+                top_address={"0x02004000"}
+                bot_address={"0x02003FC0"}
+                y={600}
+                x={-125}
+                opacity={0}
+            />
+
+            <StackV4 
+                ref={t2i1}
+                amount={4}
+                blockWidth={160}
+                blockHeight={40}
+                stroke_color={VioletSecond}
+                color={VioletFirst}
+                top_address={"0x02003800"}
+                bot_address={"0x02003700"}
+                y={600}
+                x={400}
+                opacity={0}
+            />
+
+            <StackV4 
+                ref={t2i2}
+                amount={16}
+                blockWidth={160}
+                blockHeight={40}
+                stroke_color={VioletSecond}
+                color={VioletFirst}
+                top_address={"0x02003800"}
+                bot_address={"0x020037C0"}
+                y={600}
+                x={125}
+                opacity={0}
             />
         </MyGrid>
     );
@@ -150,6 +212,80 @@ export default makeScene2D(function* (view) {
         t1().y(-100, animationTime),
         sp1().x(-725, animationTime),
         sp1().y(-425, animationTime),
+    );
+
+    yield* beginSlide("extend");
+
+    yield* all(
+        sp1().hideCell(0, 0),
+        t1().setAmount(8),
+        t1().y(0, animationTime),
+        
+        sp2().hideCell(0, 0),
+        t2().setAmount(8),
+        t2().y(0, animationTime),
+    );
+
+    yield* beginSlide("inc1");
+
+    yield* all(
+        t1().hideOne(1),
+        t1().hideOne(2),
+        t1().hideOne(3),
+        t1().hideOne(4),
+        t1().hideOne(5),
+        t1().hideOne(6),
+        t1().hideOne(7),
+        t1i1().opacity(1, animationTime),
+        t1i1().y(0, animationTime),
+
+        t2().hideOne(1),
+        t2().hideOne(2),
+        t2().hideOne(3),
+        t2().hideOne(4),
+        t2().hideOne(5),
+        t2().hideOne(6),
+        t2().hideOne(7),
+        t2i1().opacity(1, animationTime),
+        t2i1().y(0, animationTime),
+    );
+
+    yield* beginSlide("inc2");
+
+    yield* all(
+        t1().hideOne(0),
+        t1i1().hideOne(1),
+        t1i1().hideOne(2),
+        t1i1().hideOne(3),
+        t1i2().opacity(1, animationTime),
+        t1i2().y(0, animationTime),
+
+        t2().hideOne(0),
+        t2i1().hideOne(1),
+        t2i1().hideOne(2),
+        t2i1().hideOne(3),
+        t2i2().opacity(1, animationTime),
+        t2i2().y(0, animationTime),
+    );
+
+    yield* beginSlide("hide others");
+
+    yield* all(
+        t1().x(-1500, animationTime),
+        t1i1().x(-1500, animationTime),
+        t1i2().x(-700, animationTime),
+        t1i2().y(50, animationTime),
+        sp1().showCell(0, 0),
+        sp1().y(-475, animationTime),
+        sp1().x(-700, animationTime),
+        
+        t2().x(1500, animationTime),
+        t2i1().x(1500, animationTime),
+        t2i2().x(700, animationTime),
+        t2i2().y(50, animationTime),
+        sp2().showCell(0, 0),
+        sp2().y(-475, animationTime),
+        sp2().x(700, animationTime),
     );
 
     yield* beginSlide("End");

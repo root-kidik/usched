@@ -3,9 +3,7 @@ import { range, all } from '@motion-canvas/core';
 import { createRef } from '@motion-canvas/core/lib/utils';
 import { animationTime, fontFamilyDefault } from '../theme/Theme';
 
-export interface StackV3Props extends RectProps {
-    title: string;
-    capacity: string;
+export interface StackV4Props extends RectProps {
     amount: number;
     blockWidth: number;
     blockHeight: number;
@@ -15,12 +13,11 @@ export interface StackV3Props extends RectProps {
     bot_address: string;
 }
 
-export class StackV3 extends Rect {
+export class StackV4 extends Rect {
     private readonly blocks: Rect[] = [];
     private readonly texts: Txt[] = [];
     private readonly listRef = createRef<Layout>();
 
-    // Сохраняем конфигурацию для создания новых блоков в будущем
     private readonly blockConfig: {
         width: number,
         height: number,
@@ -28,7 +25,7 @@ export class StackV3 extends Rect {
         stroke: string
     };
 
-    public constructor(props: StackV3Props) {
+    public constructor(props: StackV4Props) {
         super({
             ...props,
             layout: true,
@@ -37,7 +34,6 @@ export class StackV3 extends Rect {
             gap: 20,
         });
 
-        // Инициализируем конфиг
         this.blockConfig = {
             width: props.blockWidth,
             height: props.blockHeight,
@@ -46,17 +42,10 @@ export class StackV3 extends Rect {
         };
 
         this.add(
-            <>
+            <Rect direction={'column'} gap={20} alignItems={'center'}>
+                {/* Верхний адрес */}
                 <Txt
-                    text={props.title}
-                    fill={props.stroke_color}
-                    fontSize={28}
-                    fontWeight={800}
-                    fontFamily={fontFamilyDefault}
-                    textAlign={"center"}
-                />
-                <Txt
-                    text={props.capacity}
+                    text={props.top_address}
                     fill={'rgb(255, 255, 255)'}
                     fontSize={28}
                     fontWeight={800}
@@ -64,66 +53,56 @@ export class StackV3 extends Rect {
                     textAlign={"center"}
                 />
 
-                <Rect direction={'column'} gap={20} alignItems={'center'}>
-                    <Txt
-                        text={props.top_address}
-                        fill={'rgb(255, 255, 255)'}
-                        fontSize={28}
-                        fontWeight={800}
-                        fontFamily={fontFamilyDefault}
-                        textAlign={"center"}
-                    />
+                <Layout
+                    ref={this.listRef}
+                    gap={10}
+                    direction={'column'}
+                    alignItems={'center'}
+                >
+                    {range(props.amount).map(i => {
+                        const blockRef = createRef<Rect>();
+                        const textRef = createRef<Txt>();
 
-                    <Layout
-                        ref={this.listRef}
-                        gap={10}
-                        direction={'column'}
-                        alignItems={'center'}
-                    >
-                        {range(props.amount).map(i => {
-                            const blockRef = createRef<Rect>();
-                            const textRef = createRef<Txt>();
+                        const element = (
+                            <Rect
+                                ref={blockRef}
+                                width={this.blockConfig.width}
+                                height={this.blockConfig.height}
+                                fill={this.blockConfig.color}
+                                radius={8}
+                                stroke={this.blockConfig.stroke}
+                                lineWidth={6}
+                                alignItems={'center'}
+                                justifyContent={'center'}
+                            >
+                                <Txt
+                                    ref={textRef}
+                                    text={""}
+                                    fill={'white'}
+                                    fontSize={24}
+                                    fontFamily={fontFamilyDefault}
+                                    fontWeight={800}
+                                />
+                            </Rect>
+                        );
 
-                            const element = (
-                                <Rect
-                                    ref={blockRef}
-                                    width={this.blockConfig.width}
-                                    height={this.blockConfig.height}
-                                    fill={this.blockConfig.color}
-                                    radius={8}
-                                    stroke={this.blockConfig.stroke}
-                                    lineWidth={6}
-                                    alignItems={'center'}
-                                    justifyContent={'center'}
-                                >
-                                    <Txt
-                                        ref={textRef}
-                                        text={""}
-                                        fill={'white'}
-                                        fontSize={24}
-                                        fontFamily={fontFamilyDefault}
-                                        fontWeight={800}
-                                    />
-                                </Rect>
-                            );
+                        this.blocks[i] = blockRef();
+                        this.texts[i] = textRef();
 
-                            this.blocks[i] = blockRef();
-                            this.texts[i] = textRef();
+                        return element;
+                    })}
+                </Layout>
 
-                            return element;
-                        })}
-                    </Layout>
-
-                    <Txt
-                        text={props.bot_address}
-                        fill={'rgb(255, 255, 255)'}
-                        fontSize={28}
-                        fontWeight={800}
-                        fontFamily={fontFamilyDefault}
-                        textAlign={"center"}
-                    />
-                </Rect>
-            </>
+                {/* Нижний адрес */}
+                <Txt
+                    text={props.bot_address}
+                    fill={'rgb(255, 255, 255)'}
+                    fontSize={28}
+                    fontWeight={800}
+                    fontFamily={fontFamilyDefault}
+                    textAlign={"center"}
+                />
+            </Rect>
         );
     }
 
@@ -132,7 +111,6 @@ export class StackV3 extends Rect {
 
         if (newAmount > currentAmount) {
             const animations = [];
-
             for (let i = currentAmount; i < newAmount; i++) {
                 const blockRef = createRef<Rect>();
                 const textRef = createRef<Txt>();
