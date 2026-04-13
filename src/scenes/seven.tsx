@@ -2,7 +2,7 @@ import { makeScene2D } from '@motion-canvas/2d';
 import { all, beginSlide, createRef, Direction, slideTransition } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
 import { MyGrid } from '../components/My/MyGrid';
-import { GreenFirst, GreenSecond, OrangeFirst, OrangeSecond, VioletFirst, VioletSecond } from '../theme/Colors';
+import { BlueFirst, BlueSecond, GreenFirst, GreenSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond, VioletFirst, VioletSecond } from '../theme/Colors';
 import { StackV3 } from '../components/StackV3';
 import { RegisterTableV2 } from '../components/RegisterTableV2';
 import { StackV4 } from '../components/StackV4';
@@ -266,6 +266,45 @@ export default makeScene2D(function* (view) {
         t2i1().hideOne(3),
         t2i2().opacity(1, animationTime),
         t2i2().y(0, animationTime),
+
+        t2i2().changeColor(3, RedSecond, RedFirst),
+        t2i2().setText(3, "s11"),
+
+        t2i2().changeColor(4, RedSecond, RedFirst),
+        t2i2().setText(4, "s10"),
+
+        t2i2().changeColor(5, RedSecond, RedFirst),
+        t2i2().setText(5, "s9"),
+
+        t2i2().changeColor(6, RedSecond, RedFirst),
+        t2i2().setText(6, "s8"),
+
+        t2i2().changeColor(7, RedSecond, RedFirst),
+        t2i2().setText(7, "s7"),
+
+        t2i2().changeColor(8, RedSecond, RedFirst),
+        t2i2().setText(8, "s6"),
+
+        t2i2().changeColor(9, RedSecond, RedFirst),
+        t2i2().setText(9, "s5"),
+
+        t2i2().changeColor(10, RedSecond, RedFirst),
+        t2i2().setText(10, "s4"),
+
+        t2i2().changeColor(11, RedSecond, RedFirst),
+        t2i2().setText(11, "s3"),
+
+        t2i2().changeColor(12, RedSecond, RedFirst),
+        t2i2().setText(12, "s2"),
+        
+        t2i2().changeColor(13, RedSecond, RedFirst),
+        t2i2().setText(13, "s1"),
+        
+        t2i2().changeColor(14, RedSecond, RedFirst),
+        t2i2().setText(14, "s0"),
+
+        t2i2().changeColor(15, BlueFirst, BlueSecond),
+        t2i2().setText(15, "ra"),
     );
 
     yield* beginSlide("hide others");
