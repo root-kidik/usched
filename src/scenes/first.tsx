@@ -1,5 +1,5 @@
 import { makeScene2D, Rect, RectProps, Txt } from '@motion-canvas/2d';
-import { all, beginSlide, createRef } from '@motion-canvas/core';
+import { all, beginSlide, createRef, Direction, slideTransition } from '@motion-canvas/core';
 import { Img } from '@motion-canvas/2d/lib/components';
 import logoImg from '../images/mk.png';
 import { animationTime, fontFamilyDefault } from '../theme/Theme';

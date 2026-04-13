@@ -1,5 +1,5 @@
 import { Layout, makeScene2D, Rect, Txt } from '@motion-canvas/2d';
-import { all, beginSlide, createRef, makeRef } from '@motion-canvas/core';
+import { all, beginSlide, createRef, Direction, makeRef, slideTransition } from '@motion-canvas/core';
 import { MyGrid } from '../components/My/MyGrid';
 import { RegisterTable } from '../components/RegisterTable';
 import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond } from '../theme/Colors';
@@ -220,6 +220,7 @@ export default makeScene2D(function* (view) {
     ];
 
     yield* all(
+        slideTransition(Direction.Right),
         grid().show(0),
         regs().showAll(0),
         regs().y(100, animationTime),

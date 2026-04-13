@@ -1,7 +1,7 @@
 import { makeScene2D, Rect } from '@motion-canvas/2d';
 import { InstructionTable } from '../components/InstructionTable';
 import { MyGrid } from '../components/My/MyGrid';
-import { all, beginSlide, createRef } from '@motion-canvas/core';
+import { all, beginSlide, createRef, Direction, slideTransition } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
 import { BlueFirst, BlueSecond, BrownFirst, BrownSecond, GreenFirst, GreenSecond, OrangeFirst, OrangeSecond, RedFirst, RedSecond, VioletFirst, VioletSecond } from '../theme/Colors';
 
@@ -123,7 +123,8 @@ export default makeScene2D(function* (view) {
     yield* all(
         grid().show(0),
         rv32i().opacity(1, animationTime),
-        rv32i().x(0, animationTime)
+        rv32i().x(0, animationTime),
+        slideTransition(Direction.Right),
     );
 
     yield* beginSlide("zicsr");

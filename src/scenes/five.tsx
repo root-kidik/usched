@@ -1,5 +1,5 @@
 import { CODE, Layout, lines, makeScene2D, word } from '@motion-canvas/2d';
-import { all, beginSlide, createRef } from '@motion-canvas/core';
+import { all, beginSlide, createRef, Direction, slideTransition } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
 import { MyGrid } from '../components/My/MyGrid';
 import { MyCode } from '../components/My/MyCode';
@@ -81,11 +81,10 @@ export default makeScene2D(function* (view) {
         </MyGrid>
     );
 
-    yield* grid().show(0);
-
-    yield* beginSlide("C");
 
     yield* all(
+        slideTransition(Direction.Right),
+        grid().show(0),
         cppcode().code(CODE`\
 #include <stdio.h>
 
@@ -367,6 +366,7 @@ sum(int, int):
 
     yield* all(
         asmcode().code.replace(word(15, 4, 3), "jalr    zero, 0(ra)", animationTime),
+        regs().showCell(0, 0)
     );
 
     yield* beginSlide("End");

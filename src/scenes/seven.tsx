@@ -1,5 +1,5 @@
 import { makeScene2D } from '@motion-canvas/2d';
-import { all, beginSlide, createRef } from '@motion-canvas/core';
+import { all, beginSlide, createRef, Direction, slideTransition } from '@motion-canvas/core';
 import { animationTime } from '../theme/Theme';
 import { MyGrid } from '../components/My/MyGrid';
 import { GreenFirst, GreenSecond, OrangeFirst, OrangeSecond, VioletFirst, VioletSecond } from '../theme/Colors';
@@ -87,12 +87,8 @@ export default makeScene2D(function* (view) {
     );
 
     yield* all(
+        slideTransition(Direction.Right),
         grid().show(0),
-    );
-
-    yield* beginSlide("SRAM");
-
-    yield* all(
         sram().opacity(1, animationTime),
         sram().y(0, animationTime),
     );
@@ -136,6 +132,24 @@ export default makeScene2D(function* (view) {
         sp2().opacity(1, animationTime),
         sp2().showAll(),
         sp2().changeValue(0, 0, "0x020037C0")
+    );
+
+    yield* beginSlide("hide sram");
+
+    yield* all(
+        sram().y(1080, animationTime),
+
+        t2().opacity(1, animationTime),
+        t2().x(725, animationTime),
+        t2().y(-100, animationTime),
+        sp2().x(725, animationTime),
+        sp2().y(-425, animationTime),
+
+        t1().opacity(1, animationTime),
+        t1().x(-725, animationTime),
+        t1().y(-100, animationTime),
+        sp1().x(-725, animationTime),
+        sp1().y(-425, animationTime),
     );
 
     yield* beginSlide("End");
