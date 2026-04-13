@@ -10,8 +10,7 @@ export class MyRect extends Rect {
     public constructor(props: MyRectProps) {
         super({
             layout: true,
-            direction: "column",
-            gap: props.is_hidden ? 0 : gapBig,
+            gap: props.is_hidden ? 0 : 100,
             stroke: colorSemiSemiBlack,
             lineWidth: props.is_hidden ? 0 : lineWidthNormal,
             fill: colorSemiBlack,
