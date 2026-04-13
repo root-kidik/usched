@@ -363,5 +363,11 @@ sum(int, int):
         regs().showCell(0, 3)
     );
 
+    yield* beginSlide("jalr zero, 0(ra)");
+
+    yield* all(
+        asmcode().code.replace(word(15, 4, 3), "jalr    zero, 0(ra)", animationTime),
+    );
+
     yield* beginSlide("End");
 });
