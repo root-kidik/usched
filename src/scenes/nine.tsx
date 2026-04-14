@@ -199,5 +199,33 @@ void fn2()
     yield* cppcode().selection(lines(26), animationTime);
     yield* cppcode().selection(lines(27), animationTime);
 
+    yield* beginSlide("Main");
+
+    yield* all(
+        cppcode().code(CODE`\
+typedef struct
+{
+    void* sp;
+} coroutine_t;
+ 
+extern void context_switch(coroutine_t* from, coroutine_t* to);
+
+coroutine_t coroutine_1_context;
+uint8_t coroutine_1_stack[2048];
+
+coroutine_t coroutine_2_context;
+uint8_t coroutine_2_stack[2048];
+
+void fn1();
+void fn2();
+
+int main()
+{
+    coroutine_t coroutine_main;
+    context_switch(&coroutine_main, &coroutine_1_context);
+}`, animationTime),
+        cppcode().selection(lines(16, 20), animationTime),
+    );
+
     yield* beginSlide("End");
 });
