@@ -27,7 +27,7 @@ export default makeScene2D(function* (view) {
     const filebar = createRef<MyRect>();
 
     yield* vscode().showFilebar(filebar, root),
-    yield* include().addFile(usched_inc);
+        yield* include().addFile(usched_inc);
     yield* usched_inc().addFile(coroutine_h);
 
     yield* beginSlide("task.h");
@@ -51,7 +51,7 @@ typedef struct
 
     yield* root().addFile(src);
     yield* src().addFile(usched_src);
-    yield* usched_src().addFile(context_switch_asm); 
+    yield* usched_src().addFile(context_switch_asm);
 
     yield* all(
         code().code(CODE`\
@@ -85,13 +85,13 @@ context_switch:
     );
 
     yield* beginSlide("context_switch.h");
-    
+
     const context_switch_h = createFile("context_switch.h");
 
-    yield* usched_src().addFile(context_switch_h);
+    yield* usched_inc().addFile(context_switch_h);
     yield* code().code(CODE``, animationTime);
 
-    yield* all( 
+    yield* all(
         code().code(CODE`\
 #pragma once
 
@@ -113,6 +113,7 @@ usched_task_t* usched_get_current_task();`, animationTime),
     yield* all(
         usched_src().addFile(context_switch_c),
         code().code(CODE``, animationTime),
+        root().highlight(context_switch_c()),
     );
 
     yield* code().code(CODE`\
@@ -122,45 +123,45 @@ usched_task_t* usched_get_current_task();`, animationTime),
     yield* beginSlide("extern asm");
 
     yield* all(
-            code().code(CODE`\
+        code().code(CODE`\
 #include <usched/context_switch.h>
 
 extern void context_switch(usched_task_t* from, usched_task_t* to);`, animationTime),
-        
-            code().selection(lines(2), animationTime),
+
+        code().selection(lines(2), animationTime),
     );
 
     yield* beginSlide("main_context");
 
     yield* all(
-            code().code(CODE`\
+        code().code(CODE`\
 #include <usched/context_switch.h>
 
 extern void context_switch(usched_task_t* from, usched_task_t* to);
 
 static usched_task_t  main_task;`, animationTime),
-        
-            code().selection(lines(4), animationTime),
+
+        code().selection(lines(4), animationTime),
     );
 
     yield* beginSlide("current task");
 
     yield* all(
-            code().code(CODE`\
+        code().code(CODE`\
 #include <usched/context_switch.h>
 
 extern void context_switch(usched_task_t* from, usched_task_t* to);
 
 static usched_task_t  main_task;
 static usched_task_t* current_task = &main_task;`, animationTime),
-        
-            code().selection(lines(5), animationTime),
+
+        code().selection(lines(5), animationTime),
     );
 
     yield* beginSlide("usched_context_switch");
 
     yield* all(
-            code().code(CODE`\
+        code().code(CODE`\
 #include <usched/context_switch.h>
 
 extern void context_switch(usched_task_t* from, usched_task_t* to);
@@ -174,14 +175,14 @@ void usched_context_switch(usched_task_t* to)
     current_task = to;
     context_switch(from, to);
 }`, animationTime),
-        
-            code().selection(lines(7, 12), animationTime),
+
+        code().selection(lines(7, 12), animationTime),
     );
 
     yield* beginSlide("usched_context_switch");
 
     yield* all(
-            code().code(CODE`\
+        code().code(CODE`\
 #include <usched/context_switch.h>
 
 extern void context_switch(usched_task_t* from, usched_task_t* to);
@@ -200,14 +201,14 @@ void usched_yield()
 {
     usched_context_switch(&main_task);
 }`, animationTime),
-        
-            code().selection(lines(14, 17), animationTime),
+
+        code().selection(lines(14, 17), animationTime),
     );
 
     yield* beginSlide("usched_get_current_task");
 
     yield* all(
-            code().code(CODE`\
+        code().code(CODE`\
 #include <usched/context_switch.h>
 
 extern void context_switch(usched_task_t* from, usched_task_t* to);
@@ -231,8 +232,8 @@ usched_task_t* usched_get_current_task()
 {
     return current_task;
 }`, animationTime),
-        
-            code().selection(lines(19, 22), animationTime),
+
+        code().selection(lines(19, 22), animationTime),
     );
 
     yield* beginSlide("usched.h");
@@ -355,6 +356,198 @@ void usched_run()
 }`, animationTime),
 
         code().selection(lines(20, 29), animationTime),
+    );
+
+    yield* beginSlide("example");
+
+    const example_folder = createFile("example");
+    const folder_yield = createFile("yield");
+    const main_yield = createFile("main.c");
+
+    yield* code().code(CODE``, animationTime);
+    yield* root().addFile(example_folder);
+    yield* example_folder().addFile(folder_yield);
+    yield* folder_yield().addFile(main_yield);
+
+    yield* all(
+        code().code(CODE`\
+#include <usched/usched.h>
+#include <usched/context_switch.h>
+`, animationTime),
+        code().selection(DEFAULT, animationTime),
+
+        root().highlight(main_yield()),
+    );
+
+    yield* beginSlide("task1, task2");
+
+    yield* all(
+        code().code(CODE`\
+#include <usched/usched.h>
+#include <usched/context_switch.h>
+
+void task1_fn()
+{
+    for (;;)
+    {
+        xprintf("task 1\\r\\n");
+        usched_yield();
+    }
+}
+    
+void task2_fn()
+{
+    for (;;)
+    {
+        xprintf("task 2\\r\\n");
+        usched_yield();
+    }
+}`, animationTime),
+
+        code().selection(lines(3, 19), animationTime),
+    );
+
+    yield* beginSlide("main t1, t2");
+
+    yield* all(
+        code().code(CODE`\
+#include <usched/usched.h>
+#include <usched/context_switch.h>
+
+void task1_fn()
+{
+    for (;;)
+    {
+        xprintf("task 1\\r\\n");
+        usched_yield();
+    }
+}
+    
+void task2_fn()
+{
+    for (;;)
+    {
+        xprintf("task 2\\r\\n");
+        usched_yield();
+    }
+}
+    
+int main()
+{
+    usched_task_t task1, task2;
+}`, animationTime),
+
+        code().selection(lines(20, 24), animationTime),
+    );
+
+    yield* beginSlide("main st1, st2");
+
+    yield* all(
+        code().code(CODE`\
+#include <usched/usched.h>
+#include <usched/context_switch.h>
+
+void task1_fn()
+{
+    for (;;)
+    {
+        xprintf("task 1\\r\\n");
+        usched_yield();
+    }
+}
+    
+void task2_fn()
+{
+    for (;;)
+    {
+        xprintf("task 2\\r\\n");
+        usched_yield();
+    }
+}
+    
+int main()
+{
+    usched_task_t task1, task2;
+    uint8_t stack1[512], stack2[512];
+}`, animationTime),
+
+        code().selection(lines(24), animationTime),
+    );
+
+    yield* beginSlide("usched_add_task");
+
+    yield* all(
+        code().code(CODE`\
+#include <usched/usched.h>
+#include <usched/context_switch.h>
+
+void task1_fn()
+{
+    for (;;)
+    {
+        xprintf("task 1\\r\\n");
+        usched_yield();
+    }
+}
+    
+void task2_fn()
+{
+    for (;;)
+    {
+        xprintf("task 2\\r\\n");
+        usched_yield();
+    }
+}
+    
+int main()
+{
+    usched_task_t task1, task2;
+    uint8_t stack1[512], stack2[512];
+
+    usched_add_task(&task1, task1_fn, stack1, sizeof(stack1));
+    usched_add_task(&task2, task2_fn, stack2, sizeof(stack2));
+}`, animationTime),
+
+        code().selection(lines(26, 27), animationTime),
+    );
+
+    yield* beginSlide("run");
+
+    yield* all(
+        code().code(CODE`\
+#include <usched/usched.h>
+#include <usched/context_switch.h>
+
+void task1_fn()
+{
+    for (;;)
+    {
+        xprintf("task 1\\r\\n");
+        usched_yield();
+    }
+}
+    
+void task2_fn()
+{
+    for (;;)
+    {
+        xprintf("task 2\\r\\n");
+        usched_yield();
+    }
+}
+    
+int main()
+{
+    usched_task_t task1, task2;
+    uint8_t stack1[512], stack2[512];
+
+    usched_add_task(&task1, task1_fn, stack1, sizeof(stack1));
+    usched_add_task(&task2, task2_fn, stack2, sizeof(stack2));
+
+    usched_run();
+}`, animationTime),
+
+        code().selection(lines(29), animationTime),
     );
 
     yield* beginSlide("End");
