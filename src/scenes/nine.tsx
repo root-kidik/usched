@@ -101,7 +101,7 @@ void fn1()
 {
     for (;;)
     {
-        HAL_USART_Print(&husart0, "Hello from coroutine 1!\\r\\n", USART_TIMEOUT_DEFAULT);
+        xprintf("Hello, from coroutine 1!\\r\\n");
         context_switch(&coroutine_1_context, &coroutine_2_context);
     }
 }`, animationTime),
@@ -129,7 +129,7 @@ void fn1()
 {
     for (;;)
     {
-        HAL_USART_Print(&husart0, "Hello from coroutine 1!\\r\\n", USART_TIMEOUT_DEFAULT);
+        xprintf("Hello, from coroutine 1!\\r\\n");
         context_switch(&coroutine_1_context, &coroutine_2_context);
     }
 }
@@ -138,7 +138,7 @@ void fn2()
 {
     for (;;)
     {
-        HAL_USART_Print(&husart0, "Hello from coroutine 2!\\r\\n", USART_TIMEOUT_DEFAULT);
+        xprintf("Hello, from coroutine 2!\\r\\n");
         context_switch(&coroutine_2_context, &coroutine_1_context);
     }
 }`, animationTime),

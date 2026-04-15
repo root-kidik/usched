@@ -135,8 +135,8 @@ void coroutine_init(coroutine_t* coroutine,
 }`, animationTime),
         cppcode().selection(lines(8), animationTime),
 
-        stack().changeColor(15, BlueFirst, BlueSecond),
-        stack().setText(15, "ra"),
+        stack().changeColor(0, BlueFirst, BlueSecond),
+        stack().setText(0, "ra"),
     );
 
     yield* beginSlide("coroutine save new sp");
