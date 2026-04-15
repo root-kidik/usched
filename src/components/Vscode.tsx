@@ -22,6 +22,7 @@ export class Vscode extends MyRect {
             fill: colorBlack,
             lineWidth: 0,
             direction: "row",
+            gap: 50,
             ...props,
         });
 

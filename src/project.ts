@@ -22,7 +22,8 @@ import eight from './scenes/eight?scene';
 import nine from './scenes/nine?scene';
 import ten from './scenes/ten?scene';
 import eleven from './scenes/eleven?scene';
+import twelve from './scenes/twelve?scene';
 
 export default makeProject({
-  scenes: [first, second, third, fourth, five, six, seven, eight, nine, ten, eleven],
+  scenes: [first, second, third, fourth, five, six, seven, eight, nine, ten, eleven, twelve],
 });
