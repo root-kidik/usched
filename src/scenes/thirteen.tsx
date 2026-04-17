@@ -669,13 +669,8 @@ void task2_fn()
 "Terminal ready"], "", animationTime, false);
 
     yield* console().terminal().line("task 1");
-    yield* waitFor(0.5);
-    yield* console().terminal().line("task 1");
-    yield* waitFor(0.5);
-    yield* console().terminal().line("task 1");
-    yield* waitFor(0.5);
-    yield* console().terminal().line("task 1");
     yield* console().terminal().line("task 2");
+    
     yield* waitFor(0.5);
     yield* console().terminal().line("task 1");
     yield* waitFor(0.5);
@@ -685,6 +680,8 @@ void task2_fn()
     yield* waitFor(0.5);
     yield* console().terminal().line("task 1");
     yield* console().terminal().line("task 2");
+    
+    yield* waitFor(0.5);
     yield* console().terminal().line("task 1");
     yield* waitFor(0.5);
     yield* console().terminal().line("task 1");
@@ -693,6 +690,17 @@ void task2_fn()
     yield* waitFor(0.5);
     yield* console().terminal().line("task 1");
     yield* console().terminal().line("task 2");
+
+    yield* waitFor(0.5);
+    yield* console().terminal().line("task 1");
+    yield* waitFor(0.5);
+    yield* console().terminal().line("task 1");
+    yield* waitFor(0.5);
+    yield* console().terminal().line("task 1");
+    yield* waitFor(0.5);
+    yield* console().terminal().line("task 1");
+    yield* console().terminal().line("task 2");
+
     yield* waitFor(0.5);
     yield* console().terminal().line("task 1");
     yield* waitFor(0.5);
