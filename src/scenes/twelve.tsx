@@ -55,7 +55,7 @@ typedef struct
 
     yield* all(
         code().code(CODE`\
-.section .text
+.section .text.epilog
 .balign 4
 .globl context_switch
 .type context_switch, @function
